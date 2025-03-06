@@ -13,7 +13,9 @@
 Este documento contiene el registro del desarrollo de la actividad, incluyendo
 las instrucciones principales, las decisiones, y los resultados.
 
-## Desarrollo
+## Ejercicio 1. Configuración de claves SSH
+
+## Ejercicio 2. Gestión de usuarios
 
 ### 1. Crea al usuario
 
