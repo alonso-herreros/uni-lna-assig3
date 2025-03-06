@@ -136,8 +136,74 @@ Vea `ssh-copy-id(1)` para más información.
 ### 1.3. Configuración de SSH
 
 Con los nombres de archivo por defecto y la configuración por defecto, la
-autenticación con claves debería funcionar. Para más detalles, consulte
-`ssh_config(5)`.
+autenticación con claves debería funcionar. Sin embargo, hay muchas
+personalizaciones que pueden ser útiles.
+
+#### Agente SSH
+
+El agente `ssh-agent` se encarga de gestionar las claves privadas para evitar
+tener que introducir la *passphrase* cada vez que se quiere usar. Vea
+`ssh-agent(1)`.
+
+#### Archivo de configuración
+
+##### `PubKeyAuthentication`
+
+Esta opción está habilitada por defecto. Sirve para habilitar explícitamente o
+deshabilitar la autenticación con estas claves:
+
+```ssh-config
+PubKeyAuthentication yes
+```
+
+##### `AddKeysToAgent`
+
+Para utilizar el agente SSH de forma más cómoda, es recomendable configurar el
+cliente SSH para añadir las claves al agente de forma automática cuando se
+utilicen:
+
+```ssh-config
+AddKeysToAgent yes
+```
+
+##### `Host`s
+
+Se pueden definir nombres asociados a configuraciones específicas. Por ejemplo,
+para acceder a una variedad de máquinas del lab de telemática utilizando
+nombres acortados, puede ser útil el siguiente ejemplo:
+
+```ssh-config
+Host vit* doc* jbit* it* monitor01 monitor02 monitor03 v v?
+    # El código `%h` se sustituye por el nombre utilizado, por lo que si
+    # ejecutas `ssh vit100` se traducirá a `vit100.lab.it.uc3m.es`
+    HostName %h.lab.it.uc3m.es
+    # Evita tener que especificar el usuario (en lugar de <usuario>@<host>),
+    # con <host> bastaría.
+    User <usuario>
+    # Pide un terminal obligatoriamente
+    RequestTTY force
+    # Especifica una clave pública para la autenticación
+    IdentityFile ~/.ssh/id_telematica
+    # Si quieres utilizar X-forwarding
+    #RemoteCommand export DISPLAY=localhost:10.0; cd ~; bash -l
+    # Cambia el directorio a tu $HOME al entrar. Útil cuando la entrada
+    # por defecto no es igual a $HOME.
+    RemoteCommand cd ~; bash -l
+```
+
+##### `ForwardAgent`
+
+Esta opción permite utilizar las claves almacenadas por el agente SSH local
+desde la sesión remota sin necesidad de copiar los archivos de clave privada,
+ni volver a introducir las *passphrases*, ni generar claves nuevas. Si decides
+mantenerla desactivada (por seguridad u otros motivos), puedes activarla en
+sesiones concretas usando `ssh -o ForwardAgent=yes`. También puedes activarla
+solo al conectarte a servidores concretos si la especificas bajo una sección
+`Host`.
+
+##### Más
+
+Para más información, consulte `ssh_config(5)`.
 
 ## Ejercicio 2. Gestión de usuarios
 
