@@ -210,7 +210,7 @@ Para más información, consulte `ssh_config(5)`.
 El primer paso antes de empezar con las operaciones es decidir un nombre de
 usuario que incluya el nombre del alumno. En mi caso, eligiré `alonso_ej3`.
 
-### 1. Crea al usuario
+### 2.1. Crea al usuario
 
 Se puede lograr con `adduser`, pero requiere instalar el paquete
 correspondiente. La herramienta del sistema `useradd` también nos servirá. En
@@ -241,22 +241,22 @@ usuario y de desbloqueará.
 > useradd alonso_ej3 --password ""`), o se puede establecer con `passwd` con la
 > opción `-d` (`sudo passwd -d alonso_ej3`).
 
-### 2. Comprueba `/etc/passwd`, `/etc/shadow`
+### 2.2. Comprueba `/etc/passwd`, `/etc/shadow`
 
-### 3. Crea los grupos `poesia`, `teatro`, `ensayo`
+### 2.3. Crea los grupos `poesia`, `teatro`, `ensayo`
 
-### 4. Haz al usuario miembro de los tres grupos
+### 2.4. Haz al usuario miembro de los tres grupos
 
-### 5. Haz de `ensayo` el grupo principal del usuario
+### 2.5. Haz de `ensayo` el grupo principal del usuario
 
-### 6. Cambia el nombre del grupo `teatro` a `drama`.
+### 2.6. Cambia el nombre del grupo `teatro` a `drama`.
 
-### 7. Cambia la contrasena del usuario. Comprueba `/etc/shadow`
+### 2.7. Cambia la contrasena del usuario. Comprueba `/etc/shadow`
 
-### 8. Obliga al usuario a cambiar su contraseña en 14 días
+### 2.8. Obliga al usuario a cambiar su contraseña en 14 días
 
-### 9. Bloquea la cuenta del usuario. Explica `/etc/shadow`
+### 2.9. Bloquea la cuenta del usuario. Explica `/etc/shadow`
 
-### 10. Desbloquéala y deshabilita su contraseña. Explica `/etc/shadow`
+### 2.10. Desbloquéala y deshabilita su contraseña. Explica `/etc/shadow`
 
-### 11. Borra todos los grupos y usuarios creados
+### 2.11. Borra todos los grupos y usuarios creados
