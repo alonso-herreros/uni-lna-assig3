@@ -207,7 +207,39 @@ Para más información, consulte `ssh_config(5)`.
 
 ## Ejercicio 2. Gestión de usuarios
 
+El primer paso antes de empezar con las operaciones es decidir un nombre de
+usuario que incluya el nombre del alumno. En mi caso, eligiré `alonso_ej3`.
+
 ### 1. Crea al usuario
+
+Se puede lograr con `adduser`, pero requiere instalar el paquete
+correspondiente. La herramienta del sistema `useradd` también nos servirá. En
+mi sistema, se encuentra en `/usr/sbin/`, por lo que requiere permisos de
+administrador para ejecutarse.
+
+```sh
+sudo useradd alonso_ej3
+```
+
+Al crear el usuario mediante `useradd` sin especificar una contraseña con la
+opción `--password`, la cuenta estará bloqueada y sin contraseña. Para asignar
+una contraseña, usaremos el comando `passwd`:
+
+```sh
+sudo passwd alonso_ej3
+```
+
+Tras introducir una contraseña dos veces, se actualizará la contraseña del
+usuario y de desbloqueará.
+
+> Nota
+
+> Se puede establecer la contraseña directamente usando el comando `useradd`
+> mediante la opción `--password`, pero esto no es recomendable. Si se desea
+> establecer una contraseña vacía pero con el usuario habilitado, se puede
+> pasar una cadena vacía como parámetro de `--password` a `useradd` (`sudo
+> useradd alonso_ej3 --password ""`), o se puede establecer con `passwd` con la
+> opción `-d` (`sudo passwd -d alonso_ej3`).
 
 ### 2. Comprueba `/etc/passwd`, `/etc/shadow`
 
