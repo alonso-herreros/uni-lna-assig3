@@ -459,7 +459,12 @@ Usando los comandos `userdel` y `groupdel`:
 
 ```sh
 userdel alonso_ej3
+groupdel alonso_ej3
 groupdel poesia
 groupdel ensayo
 groupdel drama
 ```
+
+Deberemos eliminar el grupo `alonso_ej3` manualmente ya que no es el principal
+del usuario. Además, debemos tener en cuenta el cambio de nombre del grupo
+`teatro` (que ya no existe) a `drama`.
