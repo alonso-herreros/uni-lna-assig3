@@ -241,6 +241,8 @@ usuario y de desbloqueará.
 > useradd alonso_ej3 --password ""`), o se puede establecer con `passwd` con la
 > opción `-d` (`sudo passwd -d alonso_ej3`).
 
+Para más información, vea `useradd(1)`, `passwd(1)`
+
 ### 2.2. Comprueba `/etc/passwd`, `/etc/shadow`
 
 El primero se puede comprobar con cualquier herramienta deseada (como `cat`),
