@@ -17,7 +17,7 @@ las instrucciones principales, las decisiones, y los resultados.
 
 En mi caso, este ejercicio es innecesario, ya que la autenticación por SSH a
 los laboratorios de telemática ya está configurada de forma extensa. Sin
-embargo, por completitud, se detallará el proceso de configuración. 
+embargo, por completitud, se detallará el proceso de configuración.
 
 ### 1.1. Generación de la clave
 
@@ -253,7 +253,7 @@ a continuación:
 
 Usando `cat`:
 
-```
+```txt
 $ cat /etc/passwd
 root:x:0:0:root:/root:/usr/bin/zsh
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
@@ -289,7 +289,7 @@ Para más información sobre este archivo, vea `passwd(5)`.
 
 Para ver este archivo, necesitamos permisos elevados:
 
-```
+```txt
 $ sudo cat /etc/shadow
 root:$y$j9T$d0lRN81LUjTsmO3bYcrsq1$eOQVFLZ7mJVwpCq3rPGtJ83s4d6gO39WM3gbGazEQI5:20125:0:99999:7:::
 daemon:*:20125:0:99999:7:::
@@ -341,7 +341,7 @@ También se puede lograr lo mismo en un solo comando usando un bucle:
 for g in "poesia" "teatro" "ensayo"; do sudo groupadd "$g"; done
 ```
 
-Para más información, vea `gruopadd(1)`.
+Para más información, vea `groupadd(1)`.
 
 ### 2.4. Haz al usuario miembro de los tres grupos
 
@@ -361,7 +361,7 @@ Se puede usar el mismo comando `usermod`:
 sudo usermod alonso_ej3 -g ensayo
 ```
 
-### 2.6. Cambia el nombre del grupo `teatro` a `drama`.
+### 2.6. Cambia el nombre del grupo `teatro` a `drama`
 
 Usando el comando `groupmod`:
 
