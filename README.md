@@ -233,7 +233,7 @@ Tras introducir una contraseña dos veces, se actualizará la contraseña del
 usuario y de desbloqueará.
 
 > Nota
-
+>
 > Se puede establecer la contraseña directamente usando el comando `useradd`
 > mediante la opción `--password`, pero esto no es recomendable. Si se desea
 > establecer una contraseña vacía pero con el usuario habilitado, se puede
