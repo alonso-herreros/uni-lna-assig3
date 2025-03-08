@@ -325,18 +325,141 @@ Para más información sobre este archivo, vea `shadow(5)`.
 
 ### 2.3. Crea los grupos `poesia`, `teatro`, `ensayo`
 
+Para crear un grupo, podemos usar el comando `groupadd`. Se requieren permisos
+elevados. Además, el comando solo permite crear un grupo a la vez, por lo que
+tendremos que crearlos uno a uno.
+
+```sh
+sudo groupadd poesia
+sudo groupadd teatro
+sudo groupadd ensayo
+```
+
+También se puede lograr lo mismo en un solo comando usando un bucle:
+
+```sh
+for g in "poesia" "teatro" "ensayo"; do sudo groupadd "$g"; done
+```
+
+Para más información, vea `gruopadd(1)`.
+
 ### 2.4. Haz al usuario miembro de los tres grupos
+
+Usando el comando `usermod`:
+
+```sh
+sudo usermod alonso_ej3 -aG poesia,teatro,ensayo
+```
+
+Para más información, vea `usermod(1)`.
 
 ### 2.5. Haz de `ensayo` el grupo principal del usuario
 
+Se puede usar el mismo comando `usermod`:
+
+```sh
+sudo usermod alonso_ej3 -g ensayo
+```
+
 ### 2.6. Cambia el nombre del grupo `teatro` a `drama`.
+
+Usando el comando `groupmod`:
+
+```sh
+sudo groupmod teatro -n drama
+```
+
+Para más información, vea `groupmod(1)`.
 
 ### 2.7. Cambia la contraseña del usuario. Comprueba `/etc/shadow`
 
+Usando el comando `passwd`:
+
+```sh
+sudo passwd alonso_ej3
+```
+
+Tras introducir la nueva contraseña dos veces, podemos comprobar si la línea
+correspondiente de `/etc/shadow` ha cambiado:
+
+```shadow
+alonso_ej3:$y$j9T$AbRs5V6SP7DE4iY0pcWmf.$1GW88B.rjyq848j8sRw4ORZdYFXZiJY9WMkuRghzbyB:20155:0:99999:7:::
+```
+
+Como podemos comprobar, la sal no ha cambiado, pero la cadena de la contraseña
+cifrada sí.  El resto de campos han mantenido su valor, aunque si se hubiera
+realizado esta operación en una fecha distinta, el tercer campo (fecha de
+último cambio de contraseña, actualmente `20155`) se habría actualizado.
+
 ### 2.8. Obliga al usuario a cambiar su contraseña en 14 días
+
+Usando el comando `chage`:
+
+```sh
+sudo chage alonso_ej3 -M 14
+```
+
+Dado este cambio, el usuario tendrá que cambiar su contraseña cada 14 días.
+
+Para más información, vea `chage(1)`.
 
 ### 2.9. Bloquea la cuenta del usuario. Explica `/etc/shadow`
 
+Usando el comando `usermod`:
+
+```sh
+sudo usermod alonso_ej3 -L
+```
+
+Si miramos en `/etc/shadow`, podemos ver que la línea correspondiente al
+usuario ha cambiado:
+
+```shadow
+alonso_ej3:!$y$j9T$AbRs5V6SP7DE4iY0pcWmf.$1GW88B.rjyq848j8sRw4ORZdYFXZiJY9WMkuRghzbyB:20155:0:14:7:::
+```
+
+Antes de la cadena `$y$` se ha introducido una exclamación. Como se indica en
+`shadow(5)`, la presencia de este carácter impedirá que el usuario inicie
+sesión usando su contraseña. Sin embargo, el usuario podría iniciar sesión por
+otros medios.
+
+Además, se puede ver el efecto del comando anterior en el campo que contiene
+`14`. Este es el campo de edad máxima, y determina cada cuántos días se debe
+cambiar la contraseña.
+
+El resto de campos han mantenido su valor.
+
 ### 2.10. Desbloquéala y deshabilita su contraseña. Explica `/etc/shadow`
 
+Usando los comandos indicados en la guía:
+
+```sh
+sudo usermod alonso_ej3 -U
+sudo passwd -d alonso_ej3
+```
+
+La línea correspondiente en `/etc/shadow` tras estos comandos es la siguiente:
+
+```shadow
+alonso_ej3::20155:0:14:7:::
+```
+
+Como podemos observar, el campo de la contraseña (entre el segundo y el tercer
+carácter `:`) está vacío. Según `shadow(5)`, esto indica que no se requiere una
+contraseña para iniciar sesión, aunque algunas aplicaciones pueden decidir
+negar el acceso al usuario completamente al encontrar el campo vacío.
+
+El resto de campos han mantenido su valor, aunque de igual manera que en el
+apartado 2.7, si esta operación se hubiera realizado en una fecha distinta, el
+campo correspondiente habría cambiado.
+
 ### 2.11. Borra todos los grupos y usuarios creados
+
+Usando los comandos `userdel` y `groupdel`:
+
+```sh
+userdel alonso_ej3
+groupdel poesia
+groupdel ensayo
+groupdel drama
+```
