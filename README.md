@@ -243,6 +243,84 @@ usuario y de desbloqueará.
 
 ### 2.2. Comprueba `/etc/passwd`, `/etc/shadow`
 
+El primero se puede comprobar con cualquier herramienta deseada (como `cat`),
+mientras que el segundo requiere permisos de `root`. Los contenidos se muestran
+a continuación:
+
+#### 2.2.1. `(/etc/passwd)`
+
+Usando `cat`:
+
+```
+$ cat /etc/passwd
+root:x:0:0:root:/root:/usr/bin/zsh
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
+systemd-timesync:x:997:997:systemd Time Synchronization:/:/usr/sbin/nologin
+messagebus:x:100:107::/nonexistent:/usr/sbin/nologin
+alonso_uni:x:1000:1000:Alonso Herreros (Uni),,,:/home/alonso_uni:/usr/bin/zsh
+sshd:x:101:65534::/run/sshd:/usr/sbin/nologin
+alonso_ej3:x:1001:1001::/home/alonso_ej3:/bin/sh
+```
+
+Como podemos ver, el nuevo usuario está al final del archivo.
+
+Para más información sobre este archivo, vea `passwd(5)`.
+
+#### 2.2.2. `(/etc/shadow)`
+
+Para ver este archivo, necesitamos permisos elevados:
+
+```
+$ sudo cat /etc/shadow
+root:$y$j9T$d0lRN81LUjTsmO3bYcrsq1$eOQVFLZ7mJVwpCq3rPGtJ83s4d6gO39WM3gbGazEQI5:20125:0:99999:7:::
+daemon:*:20125:0:99999:7:::
+bin:*:20125:0:99999:7:::
+sys:*:20125:0:99999:7:::
+sync:*:20125:0:99999:7:::
+games:*:20125:0:99999:7:::
+man:*:20125:0:99999:7:::
+lp:*:20125:0:99999:7:::
+mail:*:20125:0:99999:7:::
+news:*:20125:0:99999:7:::
+uucp:*:20125:0:99999:7:::
+proxy:*:20125:0:99999:7:::
+www-data:*:20125:0:99999:7:::
+backup:*:20125:0:99999:7:::
+list:*:20125:0:99999:7:::
+irc:*:20125:0:99999:7:::
+_apt:*:20125:0:99999:7:::
+nobody:*:20125:0:99999:7:::
+systemd-network:!*:20125::::::
+systemd-timesync:!*:20125::::::
+messagebus:!:20125::::::
+alonso_uni:$y$j9T$Fu7J2NlkodmyKql0/.xds1$oK87nuOwjqGn5BluvOe6OapIL6NJnanUjisNP70gH..:20125:0:99999:7:::
+sshd:!:20125::::::
+alonso_ej3:$y$j9T$f1Ri6c0QEszQh/EjQz0VI1$GrEr9lQ5s0GPoCFWZcB6/lrr1YYPYifH2tytAoGt.T0:20155:0:99999:7:::
+```
+
+De nuevo, la entrada correspondiente al usuario que acabamos de crear está al
+final del archivo. La secuencia `$y$` nos indica que la contraseña está
+encriptada con `yescrypt`, con la sal `j9T`.
+
+Para más información sobre este archivo, vea `shadow(5)`.
+
 ### 2.3. Crea los grupos `poesia`, `teatro`, `ensayo`
 
 ### 2.4. Haz al usuario miembro de los tres grupos
