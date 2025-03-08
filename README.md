@@ -35,18 +35,18 @@ Enter same passphrase again:
 Your identification has been saved in /home/alonso_uni/.ssh/id_rsa
 Your public key has been saved in /home/alonso_uni/.ssh/id_rsa.pub
 The key fingerprint is:
-SHA256:HXQ1YiXwW0tO3m9z7M1EAn3rvt4HI/r/MPmzpgBftgY alonso_uni@alonso-deb
+SHA256:Rt2hjeqtA9jVxKGIECadG6pL/PRsACZynvtaZWoN8+Q alonso_uni@alonso-deb
 The key's randomart image is:
 +---[RSA 3072]----+
-|          o.=o+  |
-|         . + + . |
-|          . o = .|
-|         . . O +.|
-|        S..E.o=.o|
-|          o = ==.|
-|           + ++=*|
-|          . o .@*|
-|           ..o=*%|
+|..+o     ....    |
+| o+. . . oo= .   |
+| . o. . oo+ o    |
+|+oo    ....      |
+|*o..oo+.S        |
+|.ooo.@oo .       |
+|..o.B E.. .      |
+|. .+ +  ..       |
+|  .oo   ..       |
 +----[SHA256]-----+
 ```
 
@@ -55,6 +55,10 @@ Se puede realizar la misma operación con un solo comando:
 ```sh
 ssh-keygen -t rsa -f /home/alonso_uni/.ssh/id_rsa -N '1234'
 ```
+
+La siguiente captura de pantalla ilustra el proceso:
+
+![Generación de claves SSH](img/1.1-ssh-keygen.png)
 
 ### 1.2. Distribución de clave pública
 
@@ -127,6 +131,19 @@ ssh <usuario>@<host> "cat >> ~/.ssh/authorized_keys" < ~/.ssh/id_rsa.pub
 ```
 
 Deberemos autenticarnos con la contraseña del usuario.
+
+La siguiente captura de pantalla ilustra el proceso:
+
+![Distribución de clave pública](img/1.2-ssh-copy.png)
+
+Al ser la primera vez que esta máquina virtual se conecta a la máquina remota,
+se avisa de que no se puede verificar la autenticidad de la máquina. Esto es
+normal, y se puede aceptar escribiendo `yes`. Para mayor seguridad, se puede
+comprobar la *fingerprint* de la máquina remota con la que se está conectando
+usando métodos que no se explicarán aquí.
+
+En mi caso, no tuve que introducir la contraseña de mi usuario, ya que la
+autenticación por clave pública ya estaba configurada.
 
 #### 1.2.d. `ssh-copy-id`
 
@@ -232,6 +249,10 @@ sudo passwd alonso_ej3
 Tras introducir una contraseña dos veces, se actualizará la contraseña del
 usuario y de desbloqueará.
 
+La siguiente captura de pantalla ilustra el proceso:
+
+![Creación de usuario y contraseña](img/2.1-useradd-passwd.png)
+
 > Nota
 >
 > Se puede establecer la contraseña directamente usando el comando `useradd`
@@ -335,6 +356,10 @@ sudo groupadd teatro
 sudo groupadd ensayo
 ```
 
+La siguiente captura de pantalla ilustra el proceso:
+
+![Creación de grupos](img/2.3-groupadd.png)
+
 También se puede lograr lo mismo en un solo comando usando un bucle:
 
 ```sh
@@ -351,6 +376,10 @@ Usando el comando `usermod`:
 sudo usermod alonso_ej3 -aG poesia,teatro,ensayo
 ```
 
+La siguiente captura de pantalla ilustra el proceso:
+
+![Añadir usuario a grupos](img/2.4-usermod-aG.png)
+
 Para más información, vea `usermod(1)`.
 
 ### 2.5. Haz de `ensayo` el grupo principal del usuario
@@ -361,6 +390,10 @@ Se puede usar el mismo comando `usermod`:
 sudo usermod alonso_ej3 -g ensayo
 ```
 
+La siguiente captura de pantalla ilustra el proceso:
+
+![Cambio de grupo principal](img/2.5-usermod-g.png)
+
 ### 2.6. Cambia el nombre del grupo `teatro` a `drama`
 
 Usando el comando `groupmod`:
@@ -368,6 +401,10 @@ Usando el comando `groupmod`:
 ```sh
 sudo groupmod teatro -n drama
 ```
+
+La siguiente captura de pantalla ilustra el proceso:
+
+![Cambio de nombre de grupo](img/2.6-groupmod.png)
 
 Para más información, vea `groupmod(1)`.
 
@@ -378,6 +415,10 @@ Usando el comando `passwd`:
 ```sh
 sudo passwd alonso_ej3
 ```
+
+La siguiente captura de pantalla ilustra el proceso:
+
+![Cambio de contraseña](img/2.7-passwd.png)
 
 Tras introducir la nueva contraseña dos veces, podemos comprobar si la línea
 correspondiente de `/etc/shadow` ha cambiado:
@@ -401,6 +442,10 @@ sudo chage alonso_ej3 -M 14
 
 Dado este cambio, el usuario tendrá que cambiar su contraseña cada 14 días.
 
+La siguiente captura de pantalla ilustra el proceso:
+
+![Cambio de contraseña en 14 días](img/2.8-chage.png)
+
 Para más información, vea `chage(1)`.
 
 ### 2.9. Bloquea la cuenta del usuario. Explica `/etc/shadow`
@@ -410,6 +455,10 @@ Usando el comando `usermod`:
 ```sh
 sudo usermod alonso_ej3 -L
 ```
+
+La siguiente captura de pantalla ilustra el proceso:
+
+![Bloqueo de cuenta](img/2.9-usermod-L.png)
 
 Si miramos en `/etc/shadow`, podemos ver que la línea correspondiente al
 usuario ha cambiado:
@@ -437,6 +486,10 @@ Usando los comandos indicados en la guía:
 sudo usermod alonso_ej3 -U
 sudo passwd -d alonso_ej3
 ```
+
+La siguiente captura de pantalla ilustra el proceso:
+
+![Desbloqueo y deshabilitación de contraseña](img/2.10-usermod-U-passwd-d.png)
 
 La línea correspondiente en `/etc/shadow` tras estos comandos es la siguiente:
 
@@ -468,3 +521,7 @@ sudo groupdel drama
 Deberemos eliminar el grupo `alonso_ej3` manualmente ya que no es el principal
 del usuario. Además, debemos tener en cuenta el cambio de nombre del grupo
 `teatro` (que ya no existe) a `drama`.
+
+La siguiente captura de pantalla ilustra el proceso:
+
+![Borrado de usuarios y grupos](img/2.11-userdel-groupdel.png)
