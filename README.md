@@ -331,7 +331,7 @@ Para más información sobre este archivo, vea `shadow(5)`.
 
 ### 2.6. Cambia el nombre del grupo `teatro` a `drama`.
 
-### 2.7. Cambia la contrasena del usuario. Comprueba `/etc/shadow`
+### 2.7. Cambia la contraseña del usuario. Comprueba `/etc/shadow`
 
 ### 2.8. Obliga al usuario a cambiar su contraseña en 14 días
 
