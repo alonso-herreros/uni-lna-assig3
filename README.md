@@ -458,11 +458,11 @@ campo correspondiente habría cambiado.
 Usando los comandos `userdel` y `groupdel`:
 
 ```sh
-userdel alonso_ej3
-groupdel alonso_ej3
-groupdel poesia
-groupdel ensayo
-groupdel drama
+sudo userdel alonso_ej3
+sudo groupdel alonso_ej3
+sudo groupdel poesia
+sudo groupdel ensayo
+sudo groupdel drama
 ```
 
 Deberemos eliminar el grupo `alonso_ej3` manualmente ya que no es el principal
